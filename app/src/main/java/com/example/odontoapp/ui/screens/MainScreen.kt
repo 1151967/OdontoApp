@@ -1,7 +1,9 @@
 package com.example.odontoapp.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -16,11 +18,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.odontoapp.R
+
 
 
 @Composable
@@ -35,6 +41,9 @@ fun MainScreen(
 
         // Servicios section
         ServiciosSection()
+
+            //Para hoy
+        ParaHoyRow()
 
         // Lista de citas
         CitasList()
@@ -77,6 +86,24 @@ fun AppHeader(onMenuClick: () -> Unit, onProfileClick: () -> Unit) {
 fun ServiciosSection() {
     Box(
         modifier = Modifier
+            .background(Color(0xFFD3E1FF))
+            .padding(25.dp)
+            .fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "servicios",
+            style = MaterialTheme.typography.titleLarge,
+            fontSize = 34.sp, // El doble de grande (22.sp * 2)
+            color = Color(0xFF769CDF), // Color hexadecimal #769CDF
+            fontWeight = FontWeight.Bold // Aplica negrita
+            )
+    }
+
+
+    Box(
+        modifier = Modifier
+            .background(Color(0xFFD3E1FF))
             .fillMaxWidth()
             .padding(16.dp)
             .height(180.dp),
@@ -91,21 +118,41 @@ fun ServiciosSection() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Servicios",
-                    modifier = Modifier.size(100.dp),
-                    tint = Color.Blue // Puedes ajustar el color según tus necesidades
-                )
-                Text(
-                    text = "servicios",
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 18.sp
+                Image(
+                    painter = painterResource(id = R.drawable.citas), //Nombre del recurso
+                    contentDescription = "Imagen principal de servicios",
+                    modifier = Modifier.size(400.dp),
+                    contentScale = ContentScale.Crop // Controla cómo se ajusta la imagen al contenedor
                 )
             }
         }
     }
 }
+
+@Composable
+fun ParaHoyRow() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Text(
+            text = "Para Hoy",
+            fontSize = 20.sp,
+            color = Color.Black
+        )
+
+        Icon(
+            painter = painterResource(id = R.drawable.flechaderecha), // Reemplaza con tu recurso de flecha
+            contentDescription = "Flecha",
+            modifier = Modifier.size(25.dp),
+            tint = Color.Black
+        )
+    }
+}
+
 
 @Composable
 fun CitasList() {
