@@ -65,6 +65,9 @@ fun ListaOpciones(navController: NavHostController) {
         MenuItem(icon = painterResource(id = R.drawable.ic_doctor), text = "Odontólogos") {
             navController.navigate("odontologos") // Navega a la pantalla de Odontólogos
         }
+        MenuItem(icon = painterResource(id = R.drawable.pacientes), text = "Pacientes") {
+            navController.navigate("pacientes") // Navega a la pantalla de Odontólogos
+        }
         MenuItem(icon = painterResource(id = R.drawable.ic_calendar), text = "Citas") {}
         MenuItem(icon = painterResource(id = R.drawable.ic_herramientas), text = "Herramientas") {}
         MenuItem(icon = painterResource(id = R.drawable.ic_lab), text = "Laboratorio") {}

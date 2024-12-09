@@ -28,8 +28,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.odontoapp.R
 import com.example.odontoapp.repository.OdontologoRepository
+import com.example.odontoapp.repository.PacienteRepository
 import com.example.odontoapp.viewmodel.OdontologoViewModel
 import com.example.odontoapp.viewmodel.OdontologoViewModelFactory
+import com.example.odontoapp.viewmodel.PacienteViewModel
+import com.example.odontoapp.viewmodel.PacienteViewModelFactory
 
 @Composable
 fun MainScreen(
@@ -60,6 +63,12 @@ fun MainScreen(
                     val viewModel: OdontologoViewModel = viewModel(factory = OdontologoViewModelFactory(repository))
                     OdontologosScreen(viewModel = viewModel)
                 }
+                composable("pacientes") {
+                    val repository = PacienteRepository() // Asegúrate de tener esta clase creada
+                    val viewModel: PacienteViewModel = viewModel(factory = PacienteViewModelFactory(repository))
+                    PacienteScreen(viewModel = viewModel)
+                }
+
             }
         }
     }
