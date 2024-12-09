@@ -1,9 +1,12 @@
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
@@ -17,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -28,11 +32,20 @@ import com.example.odontoapp.ui.screens.AppHeader
 
 @Composable
 fun OdontologosScreen(viewModel: OdontologoViewModel) {
-    val odontologos by viewModel.odontologos.collectAsState()
+    val odontologos by viewModel.odontologos.collectAsState() // Lista completa de odontólogos
+    val searchQuery by viewModel.searchQuery.collectAsState() // Valor de la barra de búsqueda
 
-    // Llamar a fetchOdontologos() al iniciar la pantalla
+    // Llamar a fetchOdontologos() al iniciar la pantalla para cargar los odontólogos
     LaunchedEffect(Unit) {
         viewModel.fetchOdontologos()
+    }
+
+    // Filtrar los odontólogos según la búsqueda
+    val filteredOdontologos = viewModel.filteredOdontologos()
+
+    // Verificar si hay odontólogos para mostrar
+    if (odontologos.isEmpty()) {
+        Text("Cargando odontólogos...", style = MaterialTheme.typography.bodyMedium)
     }
 
     Column(
@@ -57,12 +70,9 @@ fun OdontologosScreen(viewModel: OdontologoViewModel) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = searchQuery,
+                onValueChange = { viewModel.updateSearchQuery(it) }, // Actualiza la consulta de búsqueda
                 placeholder = { Text("Buscar....") },
-                leadingIcon = {
-                    Icon(Icons.Default.Menu, contentDescription = "Menú")
-                },
                 trailingIcon = {
                     Icon(Icons.Default.Search, contentDescription = "Buscar")
                 },
@@ -80,15 +90,16 @@ fun OdontologosScreen(viewModel: OdontologoViewModel) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Lista de odontólogos
+        // Lista de odontólogos (filtrada o completa)
         LazyColumn {
-            items(odontologos) { odontologo ->
+            items(filteredOdontologos) { odontologo ->
                 OdontologoCard(odontologo)
                 Divider(modifier = Modifier.padding(vertical = 8.dp))
             }
         }
     }
 }
+
 
 
 @Composable
@@ -101,7 +112,7 @@ fun OdontologoCard(odontologo: Odontologo) {
     ) {
         // Imagen del odontólogo
         Image(
-            painter = painterResource(id = R.drawable.odontologo_image), // Reemplaza con una imagen real
+            painter = painterResource(id = R.drawable.odontologo_image), // Reemplazar  con una imagen real del Backend
             contentDescription = "Foto de ${odontologo.nombre}",
             modifier = Modifier
                 .size(60.dp)
@@ -126,11 +137,17 @@ fun OdontologoCard(odontologo: Odontologo) {
         // Botón de edición
         IconButton(onClick = { /* Acción para editar */ }) {
             Icon(
-                painter = painterResource(id = R.drawable.edit_icon), // Reemplaza con tu icono de edición
+                painter = painterResource(id = R.drawable.edit_icon), // Usa el icono de edición correspondiente
                 contentDescription = "Editar",
-                tint = Color(0xFF9C8DF7),
-                modifier = Modifier.background(Color(0xFFECE6FF)).size(35.dp)
+                tint = Color(0xFF9C8DF7), // Color del icono
+                modifier = Modifier
+                    .background(Color(0xFFECE6FF), shape = RectangleShape)// Fondo cuadrado con bordes redondeados
+                    .size(48.dp) // Tamaño del botón
+                    .padding(8.dp) // Espaciado interno para ajustar el icono
             )
         }
+
+
+
     }
 }
