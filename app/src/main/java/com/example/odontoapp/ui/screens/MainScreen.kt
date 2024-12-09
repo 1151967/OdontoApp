@@ -27,7 +27,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.odontoapp.R
+<<<<<<< HEAD
 import com.example.odontoapp.repository.CitaRepository
+=======
+import com.example.odontoapp.R.drawable.ic_cita
+>>>>>>> 3e4c8d34b98d65b1f47ae7b937654b85027a5ba5
 import com.example.odontoapp.repository.OdontologoRepository
 import com.example.odontoapp.repository.PacienteRepository
 import com.example.odontoapp.viewmodel.CitaViewModel
@@ -184,8 +188,7 @@ fun ParaHoyRow() {
         Icon(
             painter = painterResource(id = R.drawable.flechaderecha), // Reemplaza con tu recurso de flecha
             contentDescription = "Flecha",
-            modifier = Modifier.size(25.dp),
-            tint = Color.Black
+            modifier = Modifier.size(25.dp)
         )
     }
 }
@@ -212,12 +215,13 @@ fun CitaItem(title: String, subtitle: String, doctor: String) {
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            imageVector = Icons.Default.Call,
-            contentDescription = "Cita",
-            modifier = Modifier.size(40.dp),
-            tint = Color.Gray
+        Image(
+            painter = painterResource(id = R.drawable.ic_cita),
+            contentDescription = "Esto es Cita",
+            modifier = Modifier.size(40.dp)
         )
+
+
 
         Spacer(modifier = Modifier.width(16.dp))
 
