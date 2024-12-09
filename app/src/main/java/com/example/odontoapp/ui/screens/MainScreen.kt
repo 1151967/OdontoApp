@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
@@ -21,33 +19,39 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import com.example.odontoapp.R
-
 
 
 @Composable
 fun MainScreen(
     onMenuClick: () -> Unit,
     onProfileClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController // Agrega este parámetro
 ) {
-    Column(modifier = modifier.fillMaxSize()) {
-        // Header
-        AppHeader(onMenuClick = onMenuClick, onProfileClick = onProfileClick)
-
-        // Servicios section
-        ServiciosSection()
-
-            //Para hoy
-        ParaHoyRow()
-
-        // Lista de citas
-        CitasList()
+    // Definir las pantallas con NavHost
+    NavHost(navController = navController, startDestination = "home") {
+        composable("home") {
+            Column(modifier = modifier.fillMaxSize()) {
+                AppHeader(onMenuClick = onMenuClick, onProfileClick = onProfileClick)
+                ServiciosSection()
+                ParaHoyRow()
+                CitasList()
+            }
+        }
+        composable("listaOpciones") {
+            ListaOpciones(navController) // Pantalla de opciones del menú
+        }
+        composable("odontologos") {
+            Odontologos() // Pantalla de Odontólogos
+        }
     }
+
 }
 
 
