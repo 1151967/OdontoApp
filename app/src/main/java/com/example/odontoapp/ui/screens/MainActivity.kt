@@ -3,6 +3,7 @@ package com.example.odontoapp.ui.screens
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -17,6 +18,7 @@ class MainActivity : ComponentActivity() {
             OdontoAppTheme {
                 // Crear el NavController para la navegación
                 val navController = rememberNavController()
+
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
@@ -31,6 +33,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-

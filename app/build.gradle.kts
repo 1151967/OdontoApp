@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.odontoapp"
-        minSdk = 24
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -41,6 +41,20 @@ android {
 
 dependencies {
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("androidx.compose.ui:ui:1.5.0")
+    implementation("androidx.compose.material:material:1.5.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0")
+    // Gson Converter for JSON parsing
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // (Opcional) OkHttp para configuraciones avanzadas
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation("androidx.compose.ui:ui:1.5.0") // Actualiza a la última versión estable
+    implementation("androidx.compose.material:material:1.5.0")
+    implementation("androidx.compose.ui:ui-tooling:1.5.0")
+    implementation("androidx.compose.foundation:foundation:1.5.0")
     implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

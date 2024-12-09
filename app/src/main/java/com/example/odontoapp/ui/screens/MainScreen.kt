@@ -1,5 +1,6 @@
 package com.example.odontoapp.ui.screens
 
+import OdontologosScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,38 +22,49 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.odontoapp.R
-
+import com.example.odontoapp.repository.OdontologoRepository
+import com.example.odontoapp.viewmodel.OdontologoViewModel
+import com.example.odontoapp.viewmodel.OdontologoViewModelFactory
 
 @Composable
 fun MainScreen(
     onMenuClick: () -> Unit,
     onProfileClick: () -> Unit,
     modifier: Modifier = Modifier,
-    navController: NavHostController // Agrega este parámetro
+    navController: NavHostController
 ) {
-    // Definir las pantallas con NavHost
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") {
-            Column(modifier = modifier.fillMaxSize()) {
-                AppHeader(onMenuClick = onMenuClick, onProfileClick = onProfileClick)
-                ServiciosSection()
-                ParaHoyRow()
-                CitasList()
+    Column(modifier = Modifier.fillMaxSize()) {
+        // El AppHeader siempre presente
+        AppHeader(onMenuClick = onMenuClick, onProfileClick = onProfileClick)
+
+        // Espacio para las pantallas del NavHost
+        Box(modifier = modifier.weight(1f)) {
+            NavHost(navController = navController, startDestination = "home") {
+                composable("home") {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        ServiciosSection()
+                        ParaHoyRow()
+                        CitasList()
+                    }
+                }
+                composable("listaOpciones") {
+                    ListaOpciones(navController)
+                }
+                composable("odontologos") {
+                    val repository = OdontologoRepository()
+                    val viewModel: OdontologoViewModel = viewModel(factory = OdontologoViewModelFactory(repository))
+                    OdontologosScreen(viewModel = viewModel)
+                }
             }
         }
-        composable("listaOpciones") {
-            ListaOpciones(navController) // Pantalla de opciones del menú
-        }
-        composable("odontologos") {
-            Odontologos() // Pantalla de Odontólogos
-        }
     }
-
 }
+
 
 
 
