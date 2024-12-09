@@ -27,8 +27,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.odontoapp.R
+import com.example.odontoapp.repository.CitaRepository
 import com.example.odontoapp.repository.OdontologoRepository
 import com.example.odontoapp.repository.PacienteRepository
+import com.example.odontoapp.viewmodel.CitaViewModel
+import com.example.odontoapp.viewmodel.CitaViewModelFactory
 import com.example.odontoapp.viewmodel.OdontologoViewModel
 import com.example.odontoapp.viewmodel.OdontologoViewModelFactory
 import com.example.odontoapp.viewmodel.PacienteViewModel
@@ -68,6 +71,15 @@ fun MainScreen(
                     val viewModel: PacienteViewModel = viewModel(factory = PacienteViewModelFactory(repository))
                     PacienteScreen(viewModel = viewModel)
                 }
+                composable("crearCita") {
+                    val repository = CitaRepository()
+                    val viewModel: CitaViewModel = viewModel(factory = CitaViewModelFactory(repository))
+                    CrearCitaScreen(viewModel = viewModel) {
+                        navController.popBackStack() // Volver a la pantalla anterior tras crear la cita
+                    }
+                }
+
+
 
             }
         }
