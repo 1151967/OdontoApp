@@ -41,6 +41,10 @@ android {
 
 dependencies {
 
+
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("androidx.compose.ui:ui:1.5.0")
