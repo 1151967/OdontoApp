@@ -27,11 +27,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.odontoapp.R
-<<<<<<< HEAD
 import com.example.odontoapp.repository.CitaRepository
-=======
-import com.example.odontoapp.R.drawable.ic_cita
->>>>>>> 3e4c8d34b98d65b1f47ae7b937654b85027a5ba5
 import com.example.odontoapp.repository.OdontologoRepository
 import com.example.odontoapp.repository.PacienteRepository
 import com.example.odontoapp.viewmodel.CitaViewModel
@@ -75,6 +71,11 @@ fun MainScreen(
                     val viewModel: PacienteViewModel = viewModel(factory = PacienteViewModelFactory(repository))
                     PacienteScreen(viewModel = viewModel)
                 }
+                composable("citas") {
+                    val repository = CitaRepository()
+                    val viewModel: CitaViewModel = viewModel(factory = CitaViewModelFactory(repository))
+                    CitasScreen(viewModel = viewModel)
+                }
                 composable("crearCita") {
                     val repository = CitaRepository()
                     val viewModel: CitaViewModel = viewModel(factory = CitaViewModelFactory(repository))
@@ -82,7 +83,6 @@ fun MainScreen(
                         navController.popBackStack() // Volver a la pantalla anterior tras crear la cita
                     }
                 }
-
 
 
             }
@@ -188,7 +188,8 @@ fun ParaHoyRow() {
         Icon(
             painter = painterResource(id = R.drawable.flechaderecha), // Reemplaza con tu recurso de flecha
             contentDescription = "Flecha",
-            modifier = Modifier.size(25.dp)
+            modifier = Modifier.size(25.dp),
+            tint = Color.Black
         )
     }
 }
@@ -215,13 +216,12 @@ fun CitaItem(title: String, subtitle: String, doctor: String) {
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_cita),
-            contentDescription = "Esto es Cita",
-            modifier = Modifier.size(40.dp)
+        Icon(
+            imageVector = Icons.Default.Call,
+            contentDescription = "Cita",
+            modifier = Modifier.size(40.dp),
+            tint = Color.Gray
         )
-
-
 
         Spacer(modifier = Modifier.width(16.dp))
 
