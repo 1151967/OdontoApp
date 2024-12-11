@@ -30,12 +30,15 @@ import com.example.odontoapp.R
 import com.example.odontoapp.repository.CitaRepository
 import com.example.odontoapp.repository.OdontologoRepository
 import com.example.odontoapp.repository.PacienteRepository
+import com.example.odontoapp.ui.CitasScreen
+import com.example.odontoapp.ui.CrearCitaScreen
 import com.example.odontoapp.viewmodel.CitaViewModel
 import com.example.odontoapp.viewmodel.CitaViewModelFactory
 import com.example.odontoapp.viewmodel.OdontologoViewModel
 import com.example.odontoapp.viewmodel.OdontologoViewModelFactory
 import com.example.odontoapp.viewmodel.PacienteViewModel
 import com.example.odontoapp.viewmodel.PacienteViewModelFactory
+
 
 @Composable
 fun MainScreen(
@@ -45,7 +48,7 @@ fun MainScreen(
     navController: NavHostController
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        // El AppHeader siempre presente
+        // El AppHeader siempre presente JAJAJA
         AppHeader(onMenuClick = onMenuClick, onProfileClick = onProfileClick)
 
         // Espacio para las pantallas del NavHost
@@ -67,9 +70,11 @@ fun MainScreen(
                     OdontologosScreen(viewModel = viewModel)
                 }
                 composable("pacientes") {
-                    val repository = PacienteRepository() // Asegúrate de tener esta clase creada
+                    val repository = PacienteRepository()
                     val viewModel: PacienteViewModel = viewModel(factory = PacienteViewModelFactory(repository))
-                    PacienteScreen(viewModel = viewModel)
+                    PacienteScreen(viewModel = viewModel) {
+                        navController.navigate("formularioPaciente")
+                    }
                 }
                 composable("citas") {
                     val repository = CitaRepository()
@@ -83,7 +88,6 @@ fun MainScreen(
                         navController.popBackStack() // Volver a la pantalla anterior tras crear la cita
                     }
                 }
-
 
             }
         }

@@ -21,4 +21,7 @@ interface ApiService {
     @POST("citas")
     suspend fun createCita(@Body cita: CitaRequest): Cita
 
+    @POST("personas")
+    suspend fun agregarPaciente(@Body paciente: Paciente): Paciente
+
 }
